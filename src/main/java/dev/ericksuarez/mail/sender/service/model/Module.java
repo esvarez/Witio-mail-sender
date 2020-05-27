@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Builder(toBuilder = true)
 @Entity
 @Table(name = "modules")
-public class Module {
+public class Module extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

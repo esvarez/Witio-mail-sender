@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Builder(toBuilder = true)
 @Entity
 @Table(name = "processes")
-public class Process {
+public class Process extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

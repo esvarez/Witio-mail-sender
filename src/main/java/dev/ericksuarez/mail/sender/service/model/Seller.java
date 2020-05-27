@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Builder(toBuilder = true)
 @Entity
 @Table(name = "sellers")
-public class Seller {
+public class Seller extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
