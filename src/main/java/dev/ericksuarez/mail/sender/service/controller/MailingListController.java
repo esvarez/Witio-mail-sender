@@ -1,0 +1,67 @@
+package dev.ericksuarez.mail.sender.service.controller;
+
+import dev.ericksuarez.mail.sender.service.model.Addressee;
+import dev.ericksuarez.mail.sender.service.model.MailingList;
+import dev.ericksuarez.mail.sender.service.service.MailingListService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.List;
+
+import static dev.ericksuarez.mail.sender.service.config.UrlConfig.ADD_ADDRESSEE;
+import static dev.ericksuarez.mail.sender.service.config.UrlConfig.MAILING_LISTS;
+import static dev.ericksuarez.mail.sender.service.config.UrlConfig.REMOVE_ADDRESSEE;
+
+@RestController
+public class MailingListController {
+
+    private MailingListService mailingListService;
+    @Autowired
+    public MailingListController (MailingListService mailingListService) {
+        this.mailingListService = mailingListService;
+    }
+
+    @GetMapping(MAILING_LISTS)
+    public List<MailingList> getMailingListings() {
+        return mailingListService.getAllMailingList();
+    }
+
+    @GetMapping(MAILING_LISTS + "/{id}")
+    public MailingList getMailingListById(@PathVariable String id) {
+        return mailingListService.getMailingListById(id);
+    }
+
+    @PostMapping(MAILING_LISTS)
+    public MailingList saveMailingListById(@Valid @RequestBody MailingList mailingList) {
+        return mailingListService.createMailingList(mailingList);
+    }
+
+    @PutMapping(MAILING_LISTS + "/{id}")
+    public MailingList updateMailingListById(@PathVariable String id, @Valid @RequestBody MailingList mailingList) {
+        return mailingListService.updateMailingList(id, mailingList);
+    }
+
+    @PatchMapping(ADD_ADDRESSEE + "/{id}")
+    public void addAddressee(@PathVariable String id, @RequestBody Addressee addressee) {
+        mailingListService.addAddressee(id, addressee);
+    }
+
+    @PatchMapping(REMOVE_ADDRESSEE + "/{id}")
+    public void removeAddressee(@PathVariable String id, @RequestBody Addressee addressee) {
+        mailingListService.removeAddressee(id, addressee);
+    }
+
+    @DeleteMapping()
+    public ResponseEntity<?> deleteMailingListById(@PathVariable String id) {
+        return mailingListService.deleteMailingList(id);
+    }
+}
