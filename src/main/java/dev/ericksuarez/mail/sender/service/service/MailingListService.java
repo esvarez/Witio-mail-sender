@@ -25,12 +25,10 @@ public class MailingListService {
 
     public List<MailingList> getAllMailingList() {
         log.info("event=getAllMailingListInvoked");
-        var mailingLists = new ArrayList<MailingList>();
-        mailingListRepository.findAll().forEach(mailingLists::add);
-        return mailingLists;
+        return mailingListRepository.findAll();
     }
 
-    public MailingList getMailingListById(String id) {
+    public MailingList getMailingListById(Integer id) {
         log.info("event=getMailingListByIdInvoked id={}", id);
         return mailingListRepository.findById(id)
                 .orElseThrow(() -> {
@@ -44,7 +42,7 @@ public class MailingListService {
         return mailingListRepository.save(mailingList);
     }
 
-    public MailingList updateMailingList(String id, MailingList mailingList) {
+    public MailingList updateMailingList(Integer id, MailingList mailingList) {
         log.info("event=updateMailingListInvoked mailingList={}", mailingList);
         mailingListRepository.findById(id)
                 .orElseThrow(() -> {
@@ -55,7 +53,7 @@ public class MailingListService {
         return  mailingListRepository.save(mailingList);
     }
 
-    public void addAddressee(String id, Addressee addressee) {
+    public void addAddressee(Integer id, Addressee addressee) {
         log.info("event=addAddresseeInvoked id={}, addressee={}", id, addressee);
         mailingListRepository.findById(id)
                 .ifPresentOrElse(mailingList -> {
@@ -68,7 +66,7 @@ public class MailingListService {
                 });
     }
 
-    public void removeAddressee(String id, Addressee addressee) {
+    public void removeAddressee(Integer id, Addressee addressee) {
         log.info("event=removeAddresseeInvoked id={}, addressee={}", id, addressee);
         mailingListRepository.findById(id)
                 .ifPresentOrElse(mailingList -> {
@@ -81,7 +79,7 @@ public class MailingListService {
                 });
     }
 
-    public ResponseEntity<?> deleteMailingList(String id) {
+    public ResponseEntity<?> deleteMailingList(Integer id) {
         log.info("event=deleteMailingListInvoked");
         mailingListRepository.findById(id)
                 .ifPresentOrElse(mailingList -> {

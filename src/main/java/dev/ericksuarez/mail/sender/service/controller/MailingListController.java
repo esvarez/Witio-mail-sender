@@ -36,7 +36,7 @@ public class MailingListController {
     }
 
     @GetMapping(MAILING_LISTS + "/{id}")
-    public MailingList getMailingListById(@PathVariable String id) {
+    public MailingList getMailingListById(@PathVariable Integer id) {
         return mailingListService.getMailingListById(id);
     }
 
@@ -46,22 +46,22 @@ public class MailingListController {
     }
 
     @PutMapping(MAILING_LISTS + "/{id}")
-    public MailingList updateMailingListById(@PathVariable String id, @Valid @RequestBody MailingList mailingList) {
+    public MailingList updateMailingListById(@PathVariable Integer id, @Valid @RequestBody MailingList mailingList) {
         return mailingListService.updateMailingList(id, mailingList);
     }
 
     @PatchMapping(ADD_ADDRESSEE + "/{id}")
-    public void addAddressee(@PathVariable String id, @RequestBody Addressee addressee) {
+    public void addAddressee(@PathVariable Integer id, @RequestBody Addressee addressee) {
         mailingListService.addAddressee(id, addressee);
     }
 
     @PatchMapping(REMOVE_ADDRESSEE + "/{id}")
-    public void removeAddressee(@PathVariable String id, @RequestBody Addressee addressee) {
+    public void removeAddressee(@PathVariable Integer id, @RequestBody Addressee addressee) {
         mailingListService.removeAddressee(id, addressee);
     }
 
     @DeleteMapping()
-    public ResponseEntity<?> deleteMailingListById(@PathVariable String id) {
+    public ResponseEntity<?> deleteMailingListById(@PathVariable Integer id) {
         return mailingListService.deleteMailingList(id);
     }
 }
