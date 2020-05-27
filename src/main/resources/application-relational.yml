@@ -1,2 +1,12 @@
 server:
   port: 8181
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    url: jdbc:mysql://localhost:6603/mailService
+    username: root
+    password: newPass
