@@ -1,5 +1,7 @@
-package dev.ericksuarez.mail.sender.service.controller;
+package dev.ericksuarez.mail.sender.service.controller.sql;
 
+import dev.ericksuarez.mail.sender.service.model.SenderDto;
+import dev.ericksuarez.mail.sender.service.service.sql.SenderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -12,15 +14,18 @@ import static dev.ericksuarez.mail.sender.service.config.UrlConfig.SEND_MAILS;
 @Slf4j
 @RestController
 @Profile("relational")
-public class MailSenderSqlController {
+public class MailSenderController {
+
+    private SenderService senderService;
 
     @Autowired
-    public MailSenderSqlController() {
-
+    public MailSenderController(SenderService senderService) {
+        this.senderService = senderService;
     }
 
     @PostMapping(SEND_MAILS)
-    public void sendMails(@RequestBody Object senderDto) {
+    public void sendMails(@RequestBody SenderDto senderDto) {
         log.info("event=sendMailsInvoked senderDto={}", senderDto);
+        senderService.sendMails(senderDto);
     }
 }

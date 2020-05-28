@@ -23,7 +23,7 @@ public class SenderDto {
 
     private String emails;
 
-    private Boolean reply;
+    private boolean reply;
 
     private String replyTo;
 }
