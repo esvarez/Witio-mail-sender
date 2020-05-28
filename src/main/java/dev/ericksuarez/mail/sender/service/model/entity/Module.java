@@ -1,5 +1,6 @@
-package dev.ericksuarez.mail.sender.service.model;
+package dev.ericksuarez.mail.sender.service.model.entity;
 
+import dev.ericksuarez.mail.sender.service.model.AuditModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

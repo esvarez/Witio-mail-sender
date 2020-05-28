@@ -1,9 +1,11 @@
 package dev.ericksuarez.mail.sender.service.controller;
 
-import dev.ericksuarez.mail.sender.service.model.Addressee;
-import dev.ericksuarez.mail.sender.service.model.MailingList;
+import dev.ericksuarez.mail.sender.service.model.entity.Addressee;
+import dev.ericksuarez.mail.sender.service.model.entity.MailingList;
 import dev.ericksuarez.mail.sender.service.service.MailingListService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +23,13 @@ import static dev.ericksuarez.mail.sender.service.config.UrlConfig.ADD_ADDRESSEE
 import static dev.ericksuarez.mail.sender.service.config.UrlConfig.MAILING_LISTS;
 import static dev.ericksuarez.mail.sender.service.config.UrlConfig.REMOVE_ADDRESSEE;
 
+@Slf4j
 @RestController
+@Profile("relational")
 public class MailingListController {
 
     private MailingListService mailingListService;
+
     @Autowired
     public MailingListController (MailingListService mailingListService) {
         this.mailingListService = mailingListService;
@@ -32,6 +37,7 @@ public class MailingListController {
 
     @GetMapping(MAILING_LISTS)
     public List<MailingList> getMailingListings() {
+        log.info("relational profile");
         return mailingListService.getAllMailingList();
     }
 

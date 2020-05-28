@@ -1,0 +1,17 @@
+version: '3.0'
+
+services:
+  dbsql:
+    image: mysql:8.0
+    ports:
+      - "6603:3306"
+    volumes:
+      - sql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootPass
+      MYSQL_DATABASE: mailService
+      MYSQL_USER: esuarez-mail
+      MYSQL_PASSWORD: esPass
+
+volumes:
+  sql-data:

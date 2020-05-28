@@ -1,19 +1,20 @@
 package dev.ericksuarez.mail.sender.service.service;
 
 import dev.ericksuarez.mail.sender.service.error.NotFoundException;
-import dev.ericksuarez.mail.sender.service.model.Addressee;
-import dev.ericksuarez.mail.sender.service.model.MailingList;
+import dev.ericksuarez.mail.sender.service.model.entity.Addressee;
+import dev.ericksuarez.mail.sender.service.model.entity.MailingList;
 import dev.ericksuarez.mail.sender.service.repository.MailingListRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Service
+@Profile("relational")
 public class MailingListService {
 
     private MailingListRepository mailingListRepository;

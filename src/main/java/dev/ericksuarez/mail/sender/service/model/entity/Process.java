@@ -1,5 +1,7 @@
-package dev.ericksuarez.mail.sender.service.model;
+package dev.ericksuarez.mail.sender.service.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import dev.ericksuarez.mail.sender.service.model.AuditModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,19 +26,28 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-@Table(name = "sellers")
-public class Seller extends AuditModel {
+@Table(name = "processes")
+public class Process extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String name;
+
+    @NotNull
+    private String message;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "module_id", nullable = false)
+    private Module module;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
-            name = "sellers_modules",
-            joinColumns = { @JoinColumn(name = "seller_id") },
-            inverseJoinColumns = { @JoinColumn(name = "module_id") }
+            name = "processes_mailing_lists",
+            joinColumns = { @JoinColumn(name = "process_id") },
+            inverseJoinColumns = { @JoinColumn(name = "mailing_list_id") }
     )
-    Set<Module> modules = new HashSet<>();
+    private Set<MailingList> mailingLists = new HashSet<>();
 }
