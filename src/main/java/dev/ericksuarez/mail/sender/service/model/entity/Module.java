@@ -1,6 +1,5 @@
 package dev.ericksuarez.mail.sender.service.model.entity;
 
-import dev.ericksuarez.mail.sender.service.model.AuditModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +20,7 @@ import java.util.Set;
 @Builder(toBuilder = true)
 @Entity
 @Table(name = "modules")
-public class Module extends AuditModel {
+public class Module {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -1,6 +1,5 @@
 package dev.ericksuarez.mail.sender.service.model.entity;
 
-import dev.ericksuarez.mail.sender.service.model.AuditModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +19,7 @@ import javax.persistence.Table;
 @Builder(toBuilder = true)
 @Entity
 @Table(name = "addressees")
-public class Addressee extends AuditModel {
+public class Addressee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

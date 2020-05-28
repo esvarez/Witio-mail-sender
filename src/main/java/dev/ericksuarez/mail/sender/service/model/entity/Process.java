@@ -1,7 +1,6 @@
 package dev.ericksuarez.mail.sender.service.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.ericksuarez.mail.sender.service.model.AuditModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +26,7 @@ import java.util.Set;
 @Builder(toBuilder = true)
 @Entity
 @Table(name = "processes")
-public class Process extends AuditModel {
+public class Process {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

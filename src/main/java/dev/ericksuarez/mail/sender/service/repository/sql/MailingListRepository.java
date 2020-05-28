@@ -1,4 +1,4 @@
-package dev.ericksuarez.mail.sender.service.repository;
+package dev.ericksuarez.mail.sender.service.repository.sql;
 
 import dev.ericksuarez.mail.sender.service.model.entity.MailingList;
 import org.springframework.data.jpa.repository.JpaRepository;

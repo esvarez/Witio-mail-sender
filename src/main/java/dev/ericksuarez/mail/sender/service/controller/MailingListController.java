@@ -2,7 +2,7 @@ package dev.ericksuarez.mail.sender.service.controller;
 
 import dev.ericksuarez.mail.sender.service.model.entity.Addressee;
 import dev.ericksuarez.mail.sender.service.model.entity.MailingList;
-import dev.ericksuarez.mail.sender.service.service.MailingListService;
+import dev.ericksuarez.mail.sender.service.service.sql.MailingListService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;

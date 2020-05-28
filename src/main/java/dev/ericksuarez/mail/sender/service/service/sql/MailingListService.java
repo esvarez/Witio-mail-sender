@@ -1,9 +1,9 @@
-package dev.ericksuarez.mail.sender.service.service;
+package dev.ericksuarez.mail.sender.service.service.sql;
 
 import dev.ericksuarez.mail.sender.service.error.NotFoundException;
 import dev.ericksuarez.mail.sender.service.model.entity.Addressee;
 import dev.ericksuarez.mail.sender.service.model.entity.MailingList;
-import dev.ericksuarez.mail.sender.service.repository.MailingListRepository;
+import dev.ericksuarez.mail.sender.service.repository.sql.MailingListRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
