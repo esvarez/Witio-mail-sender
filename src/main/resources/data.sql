@@ -39,7 +39,7 @@ INSERT INTO processes_mailing_lists
         (4, 1),
         (5, 2);
 
-INSERT INTO addressees
+INSERT INTO recipients
     VALUES
         (1, 'ericksuarezdev@gmail.com', 'Sofware', 'Erick Suarez', 1),
         (2, 'ericksuarezdev@gmail.com', 'Lista 2', 'Erick Lista 2', 2),

@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Map;
 
 @Data
@@ -17,8 +18,10 @@ public class SenderDto {
 
     private Module module;
 
+    @NotEmpty(message = "Please provide a process")
     private Process process;
 
+    @NotEmpty(message = "Please provide a the text to replace")
     private Map<String, String> placeHolder;
 
     private String emails;

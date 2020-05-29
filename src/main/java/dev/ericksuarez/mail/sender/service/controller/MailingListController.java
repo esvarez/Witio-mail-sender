@@ -1,6 +1,6 @@
 package dev.ericksuarez.mail.sender.service.controller;
 
-import dev.ericksuarez.mail.sender.service.model.entity.Addressee;
+import dev.ericksuarez.mail.sender.service.model.entity.Recipient;
 import dev.ericksuarez.mail.sender.service.model.entity.MailingList;
 import dev.ericksuarez.mail.sender.service.service.sql.MailingListService;
 import lombok.extern.slf4j.Slf4j;
@@ -57,12 +57,12 @@ public class MailingListController {
     }
 
     @PatchMapping(ADD_ADDRESSEE + "/{id}")
-    public void addAddressee(@PathVariable Integer id, @RequestBody Addressee addressee) {
+    public void addAddressee(@PathVariable Integer id, @RequestBody Recipient addressee) {
         mailingListService.addAddressee(id, addressee);
     }
 
     @PatchMapping(REMOVE_ADDRESSEE + "/{id}")
-    public void removeAddressee(@PathVariable Integer id, @RequestBody Addressee addressee) {
+    public void removeAddressee(@PathVariable Integer id, @RequestBody Recipient addressee) {
         mailingListService.removeAddressee(id, addressee);
     }
 

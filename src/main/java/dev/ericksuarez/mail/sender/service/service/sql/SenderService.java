@@ -1,47 +1,54 @@
 package dev.ericksuarez.mail.sender.service.service.sql;
 
 import dev.ericksuarez.mail.sender.service.model.SenderDto;
+import dev.ericksuarez.mail.sender.service.model.entity.MailingList;
+import dev.ericksuarez.mail.sender.service.model.entity.Process;
+import dev.ericksuarez.mail.sender.service.model.entity.Recipient;
+import dev.ericksuarez.mail.sender.service.repository.sql.MailingListRepository;
+import dev.ericksuarez.mail.sender.service.service.EmailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.function.Consumer;
-import java.util.regex.Pattern;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+@Slf4j
 @Service
 @Profile("relational")
 public class SenderService {
 
-    // TODO process repository
+    private ProcessService processService;
+
+    private MailingListService mailingListService;
+
+    private EmailService emailService;
 
     @Autowired
-    public SenderService() {
-
+    public SenderService(ProcessService processService, MailingListService mailingListService, EmailService emailService) {
+        this.processService = processService;
+        this.emailService = emailService;
+        this.mailingListService = mailingListService;
     }
 
-    public void sendMails(SenderDto senderDto) {
-        // TODO Get Process
-        var process = senderDto.getProcess();
+    public String sendMails(SenderDto senderDto) {
+        log.info("event=sendMailsInvoked senderDto={}", senderDto);
+        var process = processService.getProcessById(senderDto.getProcess().getId());
 
-        StringBuilder msj = new StringBuilder("%not_place% Simulacion %name% mensaje %otro%");
-        var placeHolder = senderDto.getPlaceHolder();
+        String message = replacePlaceholders(process.getMessage(), senderDto.getPlaceHolder());
 
-        //Se obtiene el mensaje
-        placeHolder.entrySet().stream()
-                .forEach((map) -> {
-                    int index = msj.indexOf("%" + map.getKey().toLowerCase() + "%");
-                    while (index != -1) {
-                        msj.replace(index, index + map.getKey().length() + 2, map.getValue());
-                        index += map.getValue().length();
-                        index = msj.indexOf("%" + map.getKey() + "%", index);
-                    }
-                });
+        String[] recipients = getMailsToFromMailList(process.getMailingLists());
 
-        // TODO fid MailListing
-        var emailListing = process.getMailingLists();
+        emailService.sendMessageToMultipleTo(process.getName(), message, recipients);
+
+
 
         // Get Mails
         var token = new StringTokenizer(senderDto.getEmails(), ";");
@@ -54,6 +61,32 @@ public class SenderService {
         }
 
         //TODO Send Mails
-        System.out.println(msj.toString());
+        System.out.println(message);
+        return message;
     }
+
+    private String replacePlaceholders(String template, Map<String, String> placeHolders){
+        log.info("event=replacePlaceholdersInvoked, template={}, placeHolders={}", template, placeHolders);
+        StringBuilder message = new StringBuilder(template);
+        placeHolders.forEach((key, value) -> {
+            int index = message.indexOf("%" + key.toLowerCase() + "%");
+            while (index != -1) {
+                message.replace(index, index + key.length() + 2, value);
+                index += value.length();
+                index = message.indexOf("%" + key + "%", index);
+            }
+        });
+        return message.toString();
+    }
+
+    private String[] getMailsToFromMailList(Set<MailingList> mailingLists) {
+        return mailingLists.stream()
+                .flatMap(getRecipients)
+                .map(getMailFromRecipient)
+                .toArray(String[]::new);
+    }
+
+    private Function<MailingList, Stream<Recipient>> getRecipients = mailingList -> mailingList.getRecipients().stream();
+
+    private Function<Recipient, String> getMailFromRecipient = recipient -> recipient.getEmail();
 }

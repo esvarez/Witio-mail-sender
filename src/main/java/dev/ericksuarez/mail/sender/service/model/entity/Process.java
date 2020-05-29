@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -39,9 +40,11 @@ public class Process {
 
     @ManyToOne
     @JsonIgnore
+    @ToString.Exclude
     @JoinColumn(name = "module_id", nullable = false)
     private Module module;
 
+    @ToString.Exclude
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "processes_mailing_lists",

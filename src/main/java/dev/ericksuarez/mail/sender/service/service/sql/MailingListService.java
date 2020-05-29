@@ -1,7 +1,7 @@
 package dev.ericksuarez.mail.sender.service.service.sql;
 
 import dev.ericksuarez.mail.sender.service.error.NotFoundException;
-import dev.ericksuarez.mail.sender.service.model.entity.Addressee;
+import dev.ericksuarez.mail.sender.service.model.entity.Recipient;
 import dev.ericksuarez.mail.sender.service.model.entity.MailingList;
 import dev.ericksuarez.mail.sender.service.repository.sql.MailingListRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -54,26 +54,26 @@ public class MailingListService {
         return  mailingListRepository.save(mailingList);
     }
 
-    public void addAddressee(Integer id, Addressee addressee) {
-        log.info("event=addAddresseeInvoked id={}, addressee={}", id, addressee);
+    public void addAddressee(Integer id, Recipient recipient) {
+        log.info("event=addAddresseeInvoked id={}, recipient={}", id, recipient);
         mailingListRepository.findById(id)
                 .ifPresentOrElse(mailingList -> {
-                    mailingList.getAddressees().add(addressee);
+                    mailingList.getRecipients().add(recipient);
                     var mailingListUpdated = mailingListRepository.save(mailingList);
-                    log.info("event=addresseeAdded mailingListUpdated={}, addressee={}", mailingListUpdated);
+                    log.info("event=recipientAdded mailingListUpdated={}", mailingListUpdated);
                 },() -> {
-                    log.error("event=mailListingToAddAddresseeNotFound id={}", id);
+                    log.error("event=mailListingToAddRecipientNotFound id={}", id);
                     throw new NotFoundException("Mailing list with id: " + id);
                 });
     }
 
-    public void removeAddressee(Integer id, Addressee addressee) {
-        log.info("event=removeAddresseeInvoked id={}, addressee={}", id, addressee);
+    public void removeAddressee(Integer id, Recipient recipient) {
+        log.info("event=removeAddresseeInvoked id={}, recipient={}", id, recipient);
         mailingListRepository.findById(id)
                 .ifPresentOrElse(mailingList -> {
-                    mailingList.getAddressees().remove(addressee);
+                    mailingList.getRecipients().remove(recipient);
                     var mailingListUpdated = mailingListRepository.save(mailingList);
-                    log.info("event=addresseeRemoved mailingListUpdated={}, addressee={}", mailingListUpdated);
+                    log.info("event=recipientRemoved mailingListUpdated={}", mailingListUpdated);
                 },() -> {
                     log.error("event=mailListingToRemoveAddresseeNotFound id={}", id);
                     throw new NotFoundException("Mailing list with id: " + id);

@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Data
@@ -18,8 +16,8 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-@Table(name = "addressees")
-public class Addressee {
+@Table(name = "recipients")
+public class Recipient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,7 +28,9 @@ public class Addressee {
 
     private String job;
 
-    @ManyToOne
+    /*@ManyToOne
+    @JsonIgnore
+    @ToString.Exclude
     @JoinColumn(name = "mail_listing_id", nullable = false)
-    private MailingList mailingList;
+    private MailingList mailingList;*/
 }
