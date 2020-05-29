@@ -6,9 +6,10 @@ spring:
     mongodb:
       host: localhost
       port: 2707
-      database: test
+      database: mail
       username: esuarez
-      password: pass
+      password: esPass
+
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration

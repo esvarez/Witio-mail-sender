@@ -1,5 +1,7 @@
 package dev.ericksuarez.mail.sender.service.service;
 
+import dev.ericksuarez.mail.sender.service.model.MailSendDto;
+import dev.ericksuarez.mail.sender.service.model.SenderDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -7,6 +9,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.Arrays;
 
 @Slf4j
 @Service
@@ -17,6 +21,20 @@ public class EmailService implements EmailSender {
     @Autowired
     public EmailService(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
+    }
+
+    public void sendMessage(MailSendDto mailSendDto) {
+
+        if (!StringUtils.isEmpty(mailSendDto.getEmails())) {
+            String[] bcc = Arrays.stream(mailSendDto.getEmails().split(";"))
+                    .toArray(String[]::new);
+            sendMessageBcc(mailSendDto.getRecipients(), bcc, mailSendDto.getSubject(), mailSendDto.getMessage(),
+                    mailSendDto.isReply(), mailSendDto.getReplyTo());
+        } else {
+            sendMessage(mailSendDto.getRecipients(), mailSendDto.getSubject(), mailSendDto.getMessage(),
+                    mailSendDto.isReply(), mailSendDto.getReplyTo());
+        }
+
     }
 
     @Override

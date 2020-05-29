@@ -41,6 +41,6 @@ INSERT INTO processes_mailing_lists
 
 INSERT INTO recipients
     VALUES
-        (1, 'ericksuarezdev@gmail.com', 'Sofware', 'Erick Suarez', 1),
-        (2, 'ericksuarezdev@gmail.com', 'Lista 2', 'Erick Lista 2', 2),
-        (3, 'ericksuarezdev@gmail.com', 'Lista 3', 'Erick Lista 3', 2);
+        (1, '4.20rck@gmail.com', 'Sofware', 'Erick Suarez', 1),
+        (2, '420rck@gmail.com', 'Lista 2', 'Erick Lista 2', 2),
+        (3, 'serick03@gmail.com', 'Lista 3', 'Erick Lista 3', 2);

@@ -13,5 +13,20 @@ services:
       MYSQL_USER: esuarez-mail
       MYSQL_PASSWORD: esPass
 
+  dbnon-sql:
+    image: mongo:3-xenial
+    ports:
+      - "2707:27017"
+    volumes:
+      # - ./src/main/resources/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+      - non-sql-data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: mail
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootPass
+      MONGODB_USER: esuarez
+      MONGODB_PASS: esPass
+
 volumes:
   sql-data:
+  non-sql-data:

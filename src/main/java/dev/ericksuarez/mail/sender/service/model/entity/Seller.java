@@ -36,5 +36,5 @@ public class Seller {
             joinColumns = { @JoinColumn(name = "seller_id") },
             inverseJoinColumns = { @JoinColumn(name = "module_id") }
     )
-    Set<Module> modules = new HashSet<>();
+    private Set<Module> modules = new HashSet<>();
 }
