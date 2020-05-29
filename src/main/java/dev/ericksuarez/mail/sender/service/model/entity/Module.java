@@ -3,7 +3,9 @@ package dev.ericksuarez.mail.sender.service.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +29,7 @@ public class Module {
 
     private String name;
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "module")
     private Set<Process> processes = new HashSet<>();
 }

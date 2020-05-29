@@ -1,4 +1,4 @@
-package dev.ericksuarez.mail.sender.service.controller;
+package dev.ericksuarez.mail.sender.service.controller.sql;
 
 import dev.ericksuarez.mail.sender.service.model.entity.Recipient;
 import dev.ericksuarez.mail.sender.service.model.entity.MailingList;

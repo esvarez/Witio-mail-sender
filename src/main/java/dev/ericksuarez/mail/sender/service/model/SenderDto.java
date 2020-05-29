@@ -16,10 +16,10 @@ import java.util.Map;
 @Builder(toBuilder = true)
 public class SenderDto {
 
-    private Module module;
+    private Integer moduleId;
 
     @NotEmpty(message = "Please provide a process")
-    private Process process;
+    private Long processId;
 
     @NotEmpty(message = "Please provide a the text to replace")
     private Map<String, String> placeHolder;

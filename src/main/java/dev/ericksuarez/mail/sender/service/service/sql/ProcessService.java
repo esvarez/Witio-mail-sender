@@ -23,7 +23,8 @@ public class ProcessService {
 
     public Process getProcessById(Long id) {
         log.info("event=getProcessByIdInvoked id={}", id);
-        // processRepository.save(Process.builder().mailingLists(new HashSet<MailingList>()).name("Eric&oacute").module(Module.builder().id(1).build()).message("Whats gáing &oacuten?").build());
+        //var x = processRepository.findByMailingLists(id);
+        System.out.println("ok");
         return processRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("event=processNotFund id={}", id);
