@@ -33,11 +33,4 @@ public class MailSenderController {
         log.info("event=sendMailsInvoked senderDto={}", senderDto);
         return senderService.sendMails(senderDto);
     }
-
-    @PostMapping("/save")
-    public Process sendMails(@RequestBody Process process) {
-
-        //return senderService.saveProcess(process);
-        return null;
-    }
 }

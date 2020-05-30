@@ -8,9 +8,9 @@ import dev.ericksuarez.mail.sender.service.model.document.Seller;
 import dev.ericksuarez.mail.sender.service.repository.non.sql.MailingListRepository;
 import dev.ericksuarez.mail.sender.service.repository.non.sql.ModuleRepository;
 import dev.ericksuarez.mail.sender.service.repository.non.sql.SellerRepository;
-import dev.ericksuarez.mail.sender.service.service.non.sql.RecipientService;
 import dev.ericksuarez.mail.sender.service.service.non.sql.ProcessService;
-import org.bouncycastle.math.raw.Mod;
+import dev.ericksuarez.mail.sender.service.service.non.sql.RecipientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +34,7 @@ public class ReaderController {
 
     private RecipientService recipientService;
 
+    @Autowired
     public ReaderController(MailingListRepository mailingListRepository, ModuleRepository moduleRepository,
                             SellerRepository sellerRepository, ProcessService processService,
                             RecipientService recipientService) {
@@ -114,7 +115,7 @@ public class ReaderController {
         return recipientService.findById(recipientId).get();
     }
 
-    @PostMapping("/saveProcess/{mailingListId}")
+    @PostMapping("/saveRecipient/{mailingListId}")
     public Recipient saveRecipient(@PathVariable String mailingListId, @RequestBody Recipient recipient) {
         return recipientService.saveRecipient(mailingListId, recipient);
     }
