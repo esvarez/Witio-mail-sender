@@ -14,7 +14,7 @@ import java.util.Set;
 @Profile("relational")
 public interface RecipientRepository extends JpaRepository<Recipient, Long> {
 
-    // @Cacheable(value = "recipientList", key = "#p0")
+    @Cacheable(value = "recipientList", key = "#p0")
     @Query("SELECT r FROM Recipient r JOIN FETCH r.mailingList m JOIN FETCH m.processes p WHERE p.id = :id")
     Set<Recipient> findByProcessId(@Param("id") Long id);
 }

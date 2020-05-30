@@ -59,7 +59,7 @@ public class SenderService extends SenderServiceUtils {
         this.sendGridService = sendGridService;
     }
 
-    public String sendMails(SenderDto senderDto) throws IOException {
+    public boolean sendMails(SenderDto senderDto) throws IOException {
         log.info("event=sendMailsInvoked senderDto={}", senderDto);
         var process = processService.findProccessByModuleIdAndProccessId(senderDto.getModuleId(),
                 String.valueOf(senderDto.getProcessId())).get();
@@ -82,7 +82,7 @@ public class SenderService extends SenderServiceUtils {
 
         emailService.sendMessage(email);
         sendGridService.sendMail(email);
-        return "null";
+        return true;
     }
 
     public void init () {

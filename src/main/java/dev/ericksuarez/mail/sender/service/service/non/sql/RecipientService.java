@@ -23,7 +23,7 @@ public class RecipientService {
         this.mailingListRepository = mailingListRepository;
     }
 
-    // @Cacheable(value = "recipientList", key = "#id")
+    @Cacheable(value = "recipientList", key = "#p0")
     public Set<Recipient> findRecipientsByMailingLists(Set<String> mailingListsId) {
         log.info("event=findRecipientsByMailingListsInvoked");
         return mailingListsId.stream()

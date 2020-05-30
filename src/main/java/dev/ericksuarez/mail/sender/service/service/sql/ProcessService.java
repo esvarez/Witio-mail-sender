@@ -23,8 +23,6 @@ public class ProcessService {
 
     public Process getProcessById(Long id) {
         log.info("event=getProcessByIdInvoked id={}", id);
-        //var x = processRepository.findByMailingLists(id);
-        System.out.println("ok");
         return processRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("event=processNotFund id={}", id);

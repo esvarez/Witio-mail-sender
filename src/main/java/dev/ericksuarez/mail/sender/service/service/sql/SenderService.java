@@ -2,7 +2,6 @@ package dev.ericksuarez.mail.sender.service.service.sql;
 
 import dev.ericksuarez.mail.sender.service.model.MailSendDto;
 import dev.ericksuarez.mail.sender.service.model.SenderDto;
-import dev.ericksuarez.mail.sender.service.model.document.Seller;
 import dev.ericksuarez.mail.sender.service.repository.sql.RecipientRepository;
 import dev.ericksuarez.mail.sender.service.service.EmailService;
 import dev.ericksuarez.mail.sender.service.service.SendGridService;
@@ -11,10 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 @Slf4j
 @Service
@@ -44,6 +41,7 @@ public class SenderService extends SenderServiceUtils {
         String message = replacePlaceholders(process.getMessage(), senderDto.getPlaceHolder());
 
         var recipientsList = recipientRepository.findByProcessId(Long.valueOf(senderDto.getProcessId()));
+        log.info("recipientsList={}", recipientsList);
 
         String[] recipients = getMailsToRecipientsList(recipientsList);
 

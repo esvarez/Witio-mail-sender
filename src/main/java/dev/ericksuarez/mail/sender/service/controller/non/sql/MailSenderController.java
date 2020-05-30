@@ -27,7 +27,7 @@ public class MailSenderController {
     }
 
     @PostMapping(SEND_MAILS)
-    public String sendMails(@RequestBody SenderDto senderDto) throws IOException {
+    public boolean sendMails(@RequestBody SenderDto senderDto) throws IOException {
         log.info("event=sendMailsInvoked senderDto={}", senderDto);
         return senderService.sendMails(senderDto);
     }
