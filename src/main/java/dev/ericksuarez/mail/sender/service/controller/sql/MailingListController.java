@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.cache.annotation.Cacheable;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -41,8 +42,10 @@ public class MailingListController {
         return mailingListService.getAllMailingList();
     }
 
+    @Cacheable(value = "mailingLists", key = "#id")
     @GetMapping(MAILING_LISTS + "/{id}")
     public MailingList getMailingListById(@PathVariable Integer id) {
+        System.out.println("event=getMailingListByIdInoked");
         return mailingListService.getMailingListById(id);
     }
 

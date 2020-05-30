@@ -43,8 +43,8 @@ public class MailSenderConfig {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername("serick03@gmail.com");
-        mailSender.setPassword("*****");
+        mailSender.setUsername("dummysender89@gmail.com");
+        mailSender.setPassword("123Dummy456");
         return mailSender;
     }
 }

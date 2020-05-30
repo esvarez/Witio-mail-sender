@@ -47,7 +47,7 @@ public class EmailService implements EmailSender {
             message.setText(text);
             setReplyTo(message, reply, replyTo);
 
-            // javaMailSender.send(message);
+            javaMailSender.send(message);
             log.info("event=sendSimulation to={}", message.getTo());
         } catch (MailException exception) {
             exception.printStackTrace();
@@ -64,7 +64,7 @@ public class EmailService implements EmailSender {
             message.setText(text);
             setReplyTo(message, reply, replyTo);
 
-            // javaMailSender.send(message);
+            javaMailSender.send(message);
             log.info("event=sendSimulation to={}", message.getTo());
         } catch (MailException exception) {
             exception.printStackTrace();

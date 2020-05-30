@@ -25,6 +25,14 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: rootPass
 
+  cachedb:
+    image: redis:buster
+    ports:
+      - "6379:6379"
+    volumes:
+      - cache-data:/var/lib/redis
+
 volumes:
   sql-data:
   non-sql-data:
+  cache-data:

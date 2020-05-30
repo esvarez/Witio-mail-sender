@@ -1,3 +1,8 @@
 application:
   senGrid:
     apiKey: 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
+spring:
+  cache:
+    type: redis
+    host: localhost
+    post: 6380

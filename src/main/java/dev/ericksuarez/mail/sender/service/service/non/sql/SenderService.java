@@ -67,6 +67,7 @@ public class SenderService extends SenderServiceUtils {
         String message = replacePlaceholders(process.getMessage(), senderDto.getPlaceHolder());
 
         var recipientsList = recipientService.findRecipientsByMailingLists(process.getMailingLists());
+        log.info("event=recipientsListRetrieved recipientsList={}", recipientsList);
 
         String[] recipients = getMailsToRecipientsListDoc(recipientsList);
 

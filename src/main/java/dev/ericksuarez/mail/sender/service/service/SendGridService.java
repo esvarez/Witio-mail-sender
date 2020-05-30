@@ -47,7 +47,6 @@ public class SendGridService {
             mail.setReplyTo(new Email(mailSendDto.getReplyTo()));
         }
 
-        System.out.println(sendGridApiKey);
         SendGrid sg = new SendGrid(sendGridApiKey);
         Request request = new Request();
         try {
