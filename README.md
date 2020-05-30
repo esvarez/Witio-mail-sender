@@ -39,3 +39,7 @@
     or `--args='--spring.profiles.active=norelational'`
     
 6. Go to the root route to see Swagger routes `http://localhost:8181/` or `http://localhost:8282/` 
+
+## Diagram ER
+
+![Diagram ER](./der.png)
