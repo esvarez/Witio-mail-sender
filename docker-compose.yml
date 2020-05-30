@@ -24,8 +24,6 @@ services:
       MONGO_INITDB_DATABASE: mail
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: rootPass
-      MONGODB_USER: esuarez
-      MONGODB_PASS: esPass
 
 volumes:
   sql-data:

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import java.io.IOException;
+
 import static dev.ericksuarez.mail.sender.service.config.UrlConfig.SEND_MAILS;
 
 @Slf4j
@@ -27,7 +29,7 @@ public class MailSenderController {
     }
 
     @PostMapping(SEND_MAILS)
-    public String sendMails(@RequestBody SenderDto senderDto) {
+    public String sendMails(@RequestBody SenderDto senderDto) throws IOException {
         log.info("event=sendMailsInvoked senderDto={}", senderDto);
         return senderService.sendMails(senderDto);
     }

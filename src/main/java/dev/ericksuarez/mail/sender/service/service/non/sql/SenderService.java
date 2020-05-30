@@ -11,6 +11,7 @@ import dev.ericksuarez.mail.sender.service.repository.non.sql.MailingListReposit
 import dev.ericksuarez.mail.sender.service.repository.non.sql.ModuleRepository;
 import dev.ericksuarez.mail.sender.service.repository.non.sql.SellerRepository;
 import dev.ericksuarez.mail.sender.service.service.EmailService;
+import dev.ericksuarez.mail.sender.service.service.SendGridService;
 import dev.ericksuarez.mail.sender.service.service.SenderServiceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,19 +43,23 @@ public class SenderService extends SenderServiceUtils {
 
     private EmailService emailService;
 
+    private SendGridService sendGridService;
+
     @Autowired
     public SenderService(SellerRepository sellerRepository, ModuleRepository moduleRepository,
                          ProcessService processService, RecipientService recipientService,
-                         MailingListRepository mailingListRepository, EmailService emailService) {
+                         MailingListRepository mailingListRepository, EmailService emailService,
+                         SendGridService sendGridService) {
         this.sellerRepository = sellerRepository;
         this.moduleRepository = moduleRepository;
         this.processService = processService;
         this.recipientService = recipientService;
         this.mailingListRepository = mailingListRepository;
         this.emailService = emailService;
+        this.sendGridService = sendGridService;
     }
 
-    public String sendMails(SenderDto senderDto) {
+    public String sendMails(SenderDto senderDto) throws IOException {
         log.info("event=sendMailsInvoked senderDto={}", senderDto);
         var process = processService.findProccessByModuleIdAndProccessId(senderDto.getModuleId(),
                 String.valueOf(senderDto.getProcessId())).get();
@@ -64,16 +70,17 @@ public class SenderService extends SenderServiceUtils {
 
         String[] recipients = getMailsToRecipientsListDoc(recipientsList);
 
-
-        emailService.sendMessage(MailSendDto.builder()
+        var email = MailSendDto.builder()
                 .emails(senderDto.getEmails())
-                .message(process.getMessage())
+                .message(message)
                 .recipients(recipients)
                 .reply(senderDto.isReply())
                 .replyTo(senderDto.getReplyTo())
                 .subject(process.getName())
-                .build());
+                .build();
 
+        emailService.sendMessage(email);
+        sendGridService.sendMail(email);
         return "null";
     }
 
